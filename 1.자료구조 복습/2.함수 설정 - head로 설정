@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+	struct Node *next;
+	int data;
+}Node;
+
+typedef struct List {
+	struct Node *head;
+} List;
+
+void get_node(List *plist) {
+	Node *node = (Node *)malloc(sizeof(Node));
+	node->data = 10;
+	node->next = NULL;
+
+	plist->head = node;
+}
+
+int main() {
+	List list = { NULL };
+
+	get_node(&list);
+
+	printf("%d\n", list.head->data);
+
+	free(list.head);
+
+	system("pause");
+	return 0;
+}
