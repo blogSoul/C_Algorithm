@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+	struct Node *next;
+	int data;
+}Node;
+
+Node *insert_first(Node *head, int data) {
+	Node *node = (Node *)malloc(sizeof(Node));
+	node->data = data;
+	node->next = head;
+
+	return node;
+}
+
+void print_list(Node* node) {
+	while (node) {
+		printf("%d\n", node->data);
+		node = node->next;
+	}
+}
+
+void free_list(Node* node) {
+	if (node) {
+		free_list(node->next);
+		free_list(node);
+	}
+}
+
+int main() {
+	Node* head = NULL;
+	int n, data, i;
+
+	scanf("%d", &n);
+	
+	for (i = 0; i < n; i = i + 1) {
+		scanf("%d", &data);
+		head = insert_first(head, data);
+	}
+
+	print_list(head);
+	free_list(head);
+
+	system("pause");
+	return 0;
+}
