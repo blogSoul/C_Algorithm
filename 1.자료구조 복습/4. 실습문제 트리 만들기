@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node {
+	int data;
+	struct Node *Leftchild;
+	struct Node *Rightchild;
+}Node;
+
+Node * search(Node * node, int key) {
+	if (node == NULL) {
+		return NULL;
+	}
+	if (node) {
+		search(node->Leftchild, key);
+		if (key == node->data) {
+			return node;
+		}
+		search(node->Rightchild, key);
+	}
+}
+
+Node * new(int key){
+	Node *node = (Node *)malloc(sizeof(Node));
+    node->data = key;
+	node->Leftchild = NULL;
+	node->Rightchild = NULL;
+
+	return node;
+}
+
+Node * insert(Node * node, int left, int center, int right) {
+	if (node == NULL) {
+		node = new(center);
+		node->Leftchild = new(left);
+		node->Rightchild = new(right);
+		return node;
+	}
+
+	if(center == node->Leftchild){
+		node->Leftchild == insert(node->Leftchild, left, center, right);
+	}
+	else if (center == node->Rightchild) {
+		node->Rightchild == insert(node->Rightchild, left, center, right);
+	}
+
+	return node;
+}
+
+void Print(Node * node) {
+	if (node) {
+		printf("[%d]", node->data);
+		Print(node->Leftchild);
+		Print(node->Rightchild);
+	}
+}
+
+int main() {
+	Node * root = NULL;
+	Node * tmp = NULL;
+	int N, i; //배열 크기
+	int left, center, right;
+
+	scanf("%d", &N);
+
+	for (i = 0; i < N; i = i + 1) {
+		scanf("%d %d %d", &left, &center, &right);
+		root = insert(root, left, center, right);
+	}
+
+	Print(root);
+
+	system("pause");
+	return 0;
+}
