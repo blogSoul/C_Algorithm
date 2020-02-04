@@ -188,7 +188,7 @@ void die1(int x) {
 		die2(x, i);
 	}
 }
-int main() {
+int mainToProblem8to10() {
 	int num;
 	scanf("%d", &num);
 	N = num;
@@ -199,12 +199,135 @@ int main() {
 }
 
 //8장 4절 문제 11
-int main() {
-	int num;
-	scanf("%d", &num);
-	N = num;
-	for (int i = 1; i <= 6; i++) {
-		die1(i);
+int A, B, C;
+int count_strike(int a, int b, int c) {
+	int count = 0;
+	if (A == a) {
+		count += 1;
+	}
+	if (B == b) {
+		count += 1;
+	}
+	if (C == c) {
+		count += 1;
+	}
+	return count;
+}
+int count_ball(int a, int b, int c) {
+	int count = 0;
+	if (A == b) {
+		count += 1;
+	}
+	if (A == c) {
+		count += 1;
+	}
+	if (B == a) {
+		count += 1;
+	}
+	if (B == c) {
+		count += 1;
+	}
+	if (C == a) {
+		count += 1;
+	}
+	if (C == b) {
+		count += 1;
+	}
+	return count;
+}
+int mainToProblem8to11() {
+	int a, b, c;
+	int d, e, f;
+	scanf("%d %d %d", &a, &b, &c);
+	A = a;
+	B = b;
+	C = c;
+	while (true) {
+		scanf("%d %d %d", &d, &e, &f);
+		printf("%dS%dB\n", count_strike(d, e, f), count_ball(d, e, f));
+		if (count_strike(d, e, f) == 3) {
+			break;
+		}
 	}
 	return 0;
+}
+
+//8장 4절 문제 12
+void print_line(int x, int y, int z) {
+	for (int i = 0; i < x; i++) {
+		printf(" ");
+	}
+	for (int i = 0; i < y; i++) {
+		printf("*");
+	}
+	for (int i = 0; i < z; i++) {
+		printf(" ");
+	}
+}
+
+int mainToProblem8to12() {
+	int num = 0;
+	scanf("%d", &num);
+	for (int i = 0; i < num; i++) {
+		print_line(num - i, 2 * i + 1, num - i);
+		printf("\n");
+	}
+	return 0;
+}
+
+//8장 4절 문제 13
+int count_3(int num) {
+	int count = 0;
+	int j;
+	for (int i = 1; i <= num; i++) {
+		j = i;
+		while (true) {
+			if (j % 10 == 3) {
+				count += 1;
+			}
+			j = j / 10;
+			if (j < 1) {
+				break;
+			}			
+		}
+	}
+	return count;
+}
+int mainToProblem8to13() {
+	int a;
+	scanf("%d", &a);
+	printf("%d", count_3(a));
+	return 0;
+}
+
+//8장 4절 문제 14
+int is_prime(int x) {
+	int isPrime = 1;
+	for (int i = 2; i < x; i++) {
+		if (x % i == 0) {
+			isPrime = 0;
+			break;
+		}
+	}
+	return isPrime;
+}
+int next_prime(int x) {
+	while (true) {
+		x += 1;
+		if (is_prime(x) == 1) {
+			return x;
+		}
+	}
+}
+
+int mainToProblem8to14() {
+	int num;
+	int a;
+	int b;
+	scanf("%d %d", &num, &a);
+
+	for (int i = 0; i < a; i++) {
+		printf(" %d", next_prime(num));
+		num = next_prime(num);
+	}
 }
