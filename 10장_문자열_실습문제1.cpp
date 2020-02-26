@@ -14,10 +14,11 @@ int maintoPoint10to1() {
 	return 0;
 }
 
-int main() {
-	char str[9], b;
-	int i = 0, num, N;
-	int a = 0;
+int maintoPoint10to2() {
+	char str[9];
+	int a = 0,i = 0;
+	int num, N;
+	
 	scanf("%d", &num);
 	N = num;
 
@@ -29,15 +30,38 @@ int main() {
 		}
 	}
 
+	N = 0;
 	for (i = 0; i < a; ++i) {
-		str[i] = num % 10 + '0';
-		if (str[i] == '0') {
-			break;
-		}
-		printf("%c\n", str[i]);
+		N = (10 * N) + (num % 10);
 		num = num / 10;
 	}
 
-	printf("%s", str);
+	sprintf(str, "%d", N);
+	//int to str해주는 함수입니다!
+	printf("%s\n", str);
+	return 0;
+}
+
+int maintoPoint10to3(){
+	char str[100], c[100];
+	int i = 0, j = 0, num = 0, a;
+
+	scanf("%s", str);
+	a = strlen(str);
+
+	for (i = 0; i < a; ++i) {
+		sprintf(c, "%s", str); // 초기화!
+		for (j = 0; j < a; ++j) {
+			num = (i + j) % a;
+			c[j] = str[num];
+		}
+		printf("%s\n", c);
+	}
+
+	return 0;
+}
+
+int main() {
+
 	return 0;
 }
