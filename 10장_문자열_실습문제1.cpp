@@ -15,5 +15,29 @@ int maintoPoint10to1() {
 }
 
 int main() {
+	char str[9], b;
+	int i = 0, num, N;
+	int a = 0;
+	scanf("%d", &num);
+	N = num;
+
+	while (true) {
+		N = N / 10;
+		a += 1;
+		if (N < 1) {
+			break;
+		}
+	}
+
+	for (i = 0; i < a; ++i) {
+		str[i] = num % 10 + '0';
+		if (str[i] == '0') {
+			break;
+		}
+		printf("%c\n", str[i]);
+		num = num / 10;
+	}
+
+	printf("%s", str);
 	return 0;
 }
