@@ -154,9 +154,10 @@ int mainToPoint11to4() {
 	return 0;
 }
 
-int main() {
-	struct dinner st1[2];
-	struct dinner *p = st1;
+int mainToPoint11to5() {
+	struct dinner st1, st2;
+	struct dinner *p = &st1;
+	struct dinner *q = &st2;
 	int i, j, num;
 
 	for (i = 0; i < 2; ++i) {
@@ -164,44 +165,217 @@ int main() {
 			printf("%d번째 런치박스 %d번째 순서입니다. : ", i + 1, j + 1);
 			scanf("%d", &num);
 			printf("\n");
-			if (j == 0) {
-				st1[i].maindish = num;
+			if (i == 0) {
+				if (j == 0) {
+					p->maindish = num;
+				}
+				else if (j == 1) {
+					p->sidedish[0] = num;
+				}
+				else if (j == 2) {
+					p->sidedish[1] = num;
+				}
+				else if (j == 3) {
+					p->sidedish[2] = num;
+				}
+				else if (j == 4) {
+					p->beverage = num;
+				}
 			}
-			else if (j == 1) {
-				st1[i].sidedish[0] = num;
-			}
-			else if (j == 2) {
-				st1[i].sidedish[1] = num;
-			}
-			else if (j == 3) {
-				st1[i].sidedish[2] = num;
-			}
-			else if (j == 4) {
-				st1[i].beverage = num;
+			else {
+				if (j == 0) {
+					q->maindish = num;
+				}
+				else if (j == 1) {
+					q->sidedish[0] = num;
+				}
+				else if (j == 2) {
+					q->sidedish[1] = num;
+				}
+				else if (j == 3) {
+					q->sidedish[2] = num;
+				}
+				else if (j == 4) {
+					q->beverage = num;
+				}
 			}
 		}
 	}
 
 	for (i = 0; i < 2; ++i) {
 		for (j = 0; j < 5; ++j) {
-			if (j == 0) {
-				num = st1[i].maindish;
+			if (i == 0) {
+				if (j == 0) {
+					num = p->maindish;
+				}
+				else if (j == 1) {
+					num = p->sidedish[0];
+				}
+				else if (j == 2) {
+					num = p->sidedish[1];
+				}
+				else if (j == 3) {
+					num = p->sidedish[2];
+				}
+				else if (j == 4) {
+					num = p->beverage;
+				}
 			}
-			else if (j == 1) {
-				num = st1[i].sidedish[0];
-			}
-			else if (j == 2) {
-				num = st1[i].sidedish[1];
-			}
-			else if (j == 3) {
-				num = st1[i].sidedish[2];
-			}
-			else if (j == 4) {
-				num = st1[i].beverage;
+			else {
+				if (j == 0) {
+					num = q->maindish;
+				}
+				else if (j == 1) {
+					num = q->sidedish[0];
+				}
+				else if (j == 2) {
+					num = q->sidedish[1];
+				}
+				else if (j == 3) {
+					num = q->sidedish[2];
+				}
+				else if (j == 4) {
+					num = q->beverage;
+				}
 			}
 			printf("%d번째 런치박스 %d번째 가격입니다. : %d\n", i + 1, j + 1, num);
 		}
 	}
+	
+	return 0;
+}
 
+struct complex {
+	double real;
+	double imag;
+};
+
+struct complex add_complex(struct complex a, struct complex b) {
+	struct complex c;
+	c.real = a.real + b.real;
+	c.imag = a.imag + b.imag;
+	return c;
+}
+
+int mainToPoint11to6() {
+	struct complex a, b, c;
+	printf("a값 입력 : \n");
+	scanf("%lf", &a.real);
+	scanf("%lf", &a.imag);
+	printf("\n");
+
+	printf("b값 입력 : \n");
+	scanf("%lf", &b.real);
+	scanf("%lf", &b.imag);
+	printf("\n");
+	
+	c = add_complex(a, b);
+	printf("뎃셈값 : %.2f", c.real);
+	printf("뎃셈값 : %.2f", c.imag);
+	// double형은 scanf에선 %lf, printf에선 %f이다.
+	return 0;
+}
+
+struct student *next_addr(struct student *pst) {
+	return pst + 1;
+} 
+// 구조체 주소를 반환하는 함수 : 포인터를 출력해줍니다.
+// 일반 변수의 주소 반환과 동일
+
+int mainToPoint11to7() {
+	struct student st[2] = { {0, "tom", 0.1},{1, "Her", 1.1}};
+	struct student *p, *q = st;
+	p = next_addr(st);
+	printf("%d %s %.2f\n", p->id, p->name, p->grade);
+	p = next_addr((q + 0));
+	printf("%d %s %.2f\n", p->id, p->name, p->grade);
+	return 0;
+}
+
+struct complex *larger_complex(struct complex *a, struct complex *b) {
+	double p, q;
+	p = (a->real)*(a->real) + (a->imag)*(a->imag);
+	q = (b->real)*(b->real) + (b->imag)*(b->imag);
+
+	if (p >= q)
+		return a;
+	else
+		return b;
+}
+
+int mainToPoint11to8() {
+	struct complex a, b, *c;
+	struct complex *p = &a, *q = &b;
+	double num;
+	printf("a값 입력 : \n");
+	scanf("%lf", &num);
+	p->real = num;
+	scanf("%lf", &num);
+	p->imag = num;
+	printf("\n");
+
+	printf("b값 입력 : \n");
+	scanf("%lf", &num);
+	q->real = num;
+	scanf("%lf", &num);
+	q->imag = num;
+	printf("\n");
+
+	c = larger_complex(p, q);
+
+	printf("절대값이 큰 복소수는 %.2f %.2f\n", c->real, c->imag);
+	return 0;
+}
+
+struct address {
+	int zipcode;
+	char city;
+};
+
+struct student4 {
+	int id;
+	char name[8];
+	double grade;
+	char *dept; // 포인터도 구조체에서 만들 수 있다.
+	struct address addr; // 구조체 변수도 넣을 수 있다. 
+	// 대신 사용하는 구조체는 상단에 존재해야 한다.
+	struct student4 *roommate; //자신과 동일한 구조체의 "포인터"는 사용할 수 있다.
+};
+
+
+int mainToPoint11to9() {
+	struct student4 st;
+	//struct student4 st = { 10, "Tom", 3.2 , "math" }; 
+	// 직접 문자열을 char포인터에 넣을 수 없다.
+	char arr[10] = "software";
+
+	st.id = 20;
+	st.grade = 3.5;
+	strcpy(st.name, "Alice");
+	st.dept = arr;
+	st.addr.city = 77;
+	st.addr.zipcode = 'a';
+	st.roommate->grade = 4.5;
+	return 0;
+}
+
+struct student7 {
+	int id;
+	char name[8];
+	double grade;
+	struct student7 *roommate;
+	struct student7 *friends[10];
+};
+
+int main() {
+	struct student7 st1 = { 1, "A", 1 };
+	struct student7 st2 = { 2, "B", 2 };
+	struct student7 st3 = { 3, "C", 3 };
+
+	st1.friends[0] = &st2;
+	st1.friends[1] = &st3;
+
+	printf("1번 학생 정보 입력 : \n");
+	scanf("%d", st1.id);
 	return 0;
 }
