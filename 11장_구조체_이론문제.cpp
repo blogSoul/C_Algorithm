@@ -18,11 +18,13 @@ int mainToPoint11to1() {
 	return 0;
 }
 
-struct dinner {
+typedef struct dinner {
 	int maindish;
 	int sidedish[3];
 	int beverage;
-} st; // 전역 변수 st 선언
+} dinner;
+
+dinner stq; // 전역 변수 st 선언
 
 int mainToPoint11to2() {
 	struct dinner dn1;
@@ -367,15 +369,83 @@ struct student7 {
 	struct student7 *friends[10];
 };
 
-int main() {
+int mainToPoint11to10() {
 	struct student7 st1 = { 1, "A", 1 };
 	struct student7 st2 = { 2, "B", 2 };
 	struct student7 st3 = { 3, "C", 3 };
-
+	int num;
 	st1.friends[0] = &st2;
 	st1.friends[1] = &st3;
 
 	printf("1번 학생 정보 입력 : \n");
-	scanf("%d", st1.id);
+	scanf("%d", &st1.id);
+	scanf("%s", &st1.name);
+	getchar();
+	scanf("%lf", &st1.grade);
+
+	printf("2번 학생 정보 입력 : \n");
+	scanf("%d", &st1.friends[0]->id);
+	scanf("%s", &st1.friends[0]->name);
+	getchar();
+	scanf("%lf", &st1.friends[0]->grade);
+
+	printf("3번 학생 정보 입력 : \n");
+	scanf("%d", &st1.friends[1]->id);
+	scanf("%s", &st1.friends[1]->name);
+	getchar();
+	scanf("%lf", &st1.friends[1]->grade);
+
+	printf("1번 학생 정보 : \n");
+	printf("%d\n", st1.id);
+	printf("%s\n", st1.name);
+	printf("%.2f\n", st1.grade);
+
+	printf("2번 학생 정보 : \n");
+	printf("%d\n", st1.friends[0]->id);
+	printf("%s\n", st1.friends[0]->name);
+	printf("%.2f\n", st1.friends[0]->grade);
+
+	printf("3번 학생 정보 : \n");
+	printf("%d\n", st1.friends[1]->id);
+	printf("%s\n", st1.friends[1]->name);
+	printf("%.2f\n", st1.friends[1]->grade);
 	return 0;
 }
+
+struct student3 {
+	int id;
+	char name[8];
+	double grade;
+};
+
+typedef struct student3 STUDENT;
+// typedef를 사용하면 자료형 재정의합니다.
+
+int mainToPoint11to11() {
+	STUDENT st1 = { 10, "TOM", 3.2 };
+
+	printf("id : %d\n", st1.id);
+	printf("name : %s\n", st1.name);
+	printf("grade : %.2f\n", st1.grade);
+	return 0;
+};
+
+typedef struct student5 {
+	int id;
+	char name[8];
+	double grade;
+} student5; // 구조체 이름과 사용자 자료형 이름이 같아도 됨
+
+student5 stw; // student4 형으로 변수 st 선언 가능
+
+typedef int INTARR[6]; // INTARR은 크기가 5인 int배열
+
+int mainToPoint11to12() {
+	INTARR x = { 1, 4, 7 }; // int 배열 변수 x 선언
+	int i;
+
+	for (i = 0; i < 6; ++i) { // x[5]로 어떤 값이 출력되는가?
+		printf(" %d", x[i]);
+	}
+	return 0;
+};
