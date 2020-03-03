@@ -51,7 +51,45 @@ int maintoPoint12to8() {
 	return 0;
 }
 
-int main() {
+typedef struct student {
+	char name[7];
+	double KoreaScore;
+	double EnglishScore;
+	double MathScore;
+	double min;
+}student;
 
+int maintoPoint12to9() {
+	student *p;
+	int N, i;
+	scanf("%d", &N);
+	p = (student*)calloc(N, sizeof(student));
+	for (i = 0; i < N; ++i) {
+		scanf("%s", &p[i].name);
+		scanf("%lf", &p[i].KoreaScore);
+		scanf("%lf", &p[i].EnglishScore);
+		scanf("%lf", &p[i].MathScore);
+		p[i].min = (p[i].KoreaScore + p[i].EnglishScore + p[i].MathScore) / 3;
+		getchar();
+	}
+	for (i = 0; i < N; ++i) {
+		printf("%s %.1f", p[i].name, p[i].min);
+		if (p[i].KoreaScore >= 90 || p[i].EnglishScore >= 90 || p[i].MathScore >= 90) {
+			printf(" GREAT");
+		}
+		if (p[i].KoreaScore < 70 || p[i].EnglishScore < 70 || p[i].MathScore < 70) {
+			printf(" BAD");
+		}
+		printf("\n");
+	}
+	free(p);
+	return 0;
+}
+
+int main() {
+	int N, i;
+	char *p = NULL;
+	scanf("%d", &N);
+	
 	return 0;
 }
