@@ -148,7 +148,7 @@ int mainToPoint12to5() {
 	return 0;
 }
 
-int main() {
+int mainToPoint12to6() {
 	// calloc() : 바이트 수 만큼 할당하고, 0으로 초기화 후 시작 위치 반환
 	int *p = NULL;
 	int size = 3;
