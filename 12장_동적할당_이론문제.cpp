@@ -86,21 +86,91 @@ typedef struct book_title {
 	char *title;
 } BINFO;
 
-int main() {
-	BINFO book, *p = NULL;
+int mainToPoint12to4() {
+	BINFO *p = NULL;
 	int i, n;
+	char str[30] = "\0";
+	char *q = str;
 	scanf("%d", &n);
+	getchar();
 	p = (BINFO *)malloc(n * sizeof(BINFO));
 	if (p == NULL) {
 		printf("Not enough memory!\n");
 		return -1;
 	}
 	for (i = 0; i < n; ++i) {
-		scanf("%s", (p+i)->title);
+		scanf("%s", str);
 		getchar();
+		p[i].title = (char*)malloc((strlen(str) + 1) * sizeof(char));
+		// (p + i)-> title는 안됩니다!
+		if (p[i].title == NULL) {
+			printf("Not enough memory!\n");
+			return -1;
+		}
+		strcpy(p[i].title, str);
 	}
 	for (i = 0; i < n; ++i) {
-		printf("%s\n", *((p + i)->title));
+		printf("%s\n", p[i].title);
 	}
+	for (i = 0; i < n; ++i) {
+		free(p[i].title);
+	} // 메모리 해제
+	free(p); // 메모리 해제
+	return 0;
+}
+
+int mainToPoint12to5() {
+	char **pch = NULL;
+	char str[4];
+	int i;
+	pch = (char**)malloc(3 * sizeof(char*));
+	for (i = 0; i < 3; ++i) {
+		pch[i] = (char*)malloc(4 * sizeof(char));
+	}
+
+	for (i = 0; i < 3; ++i) {
+		gets_s(str); 
+		// scanf함수를 이용해 변수를 통해 문자열을 받는 것은 보안상 좋지 않으므로 
+		// gets_s를 사용하자!
+		strcpy(pch[i], str); // str에 있는 문자열을 pch[i]에 복사해줍니다.
+	}
+	
+	for (i = 0; i < 3; ++i) {
+		puts(pch[i]); 
+		// printf함수를 이용해 변수를 통해 문자열을 받는 것은 보안상 좋지 않으므로 
+		// puts를 사용하자!
+	}
+
+	for (i = 0; i < 3; ++i) {
+		free(pch[i]);
+	}// 메모리 해제
+	free(pch);// 메모리 해제
+	return 0;
+}
+
+int main() {
+	// calloc() : 바이트 수 만큼 할당하고, 0으로 초기화 후 시작 위치 반환
+	int *p = NULL;
+	int size = 3;
+	int num, i, index = 0;
+	p = (int*)calloc(size, sizeof(int));
+	if (p == NULL) {
+		printf("Not enough memory!\n");
+		return -1;
+	}
+	for (i = 0; i < 10; ++i) {
+		scanf("%d", &num);
+		if (index < size) {
+			p[index++] = num;
+		}
+		else {
+			size += 3;
+			p = (int *)realloc(p, size * sizeof(int));
+			p[index++] = num;
+		}
+	}
+	printf("%d\n", size); // size가 12만큼 나오는 것을 볼 수 있습니다.
+	free(p);
+	// realloc() : ptr이 가리키는 메모리의 크기를 size바이트 크기로 조정하고 시작 위치 반환
 	return 0;
 }
