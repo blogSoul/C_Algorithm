@@ -63,7 +63,7 @@ typedef struct st {
 	int cnt = 0, pcnt = 0; // 인증시험 본 책의 권수, 통과한 책의 권수
 };
 
-int main() {
+int mainToPoint11to14() {
 	st student[100];
 	st *p = student;
 	char str[5][30];
