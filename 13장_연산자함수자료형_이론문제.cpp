@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+#include <stdlib.h> // rand 함수 사용을 위해
+#include <time.h> // time 함수 사용을 위해
 
 int mainToPoint13to1() {
 	// 비트 단위 논리 연산자 : x & y
@@ -71,7 +72,7 @@ int factorial(int n) {
 	return factorial(n - 1) * n;
 }
 
-int main() {
+int mainToPoint13to4() {
 	dec1(3);
 	printf("\n");
 	dec2(3);
@@ -79,5 +80,101 @@ int main() {
 	printf("%d\n", sum(10));
 	printf("%d\n", factorial(10));
 	printf("%d\n", rand()); // 난수 생성
+	srand(10); // 시드를 10으로 지정
+	printf("%d\n", rand()); // 난수 생성
+	srand(time(NULL)); // 시드를 현재시간으로 지정
+	printf("%d\n", rand()); // 난수 생성
+	return 0;
+}
+
+int randomnumber1() {
+	int n;
+	n = rand() % 100;
+	return n;
+}
+
+int mainToPoint13to5() {
+	int i;
+	for (i = 0; i < 5; i++) {
+		printf("%d\n", randomnumber1());
+	}
+
+	clock_t start, finish;
+	double duration;
+
+	start = clock(); // 시작 시각
+	// 수행시간을 측정하고 하는 코드..!
+	finish = clock(); // 종료 시각
+
+	duration = (double)(finish - start) / CLOCKS_PER_SEC;
+	// CLOCKS_PER_SEC (time.h에 정의된 상수)단위로 반환
+	printf("실행 시간: %lf 초 \n", duration);
+	return 0;
+}
+
+void swap2(int *p1, int *p2) {
+	int *tmp;
+	tmp = p1;
+	p1 = p2;
+	p2 = tmp;
+}
+
+void swap3(int **pp1, int **pp2) {
+	int *ptmp;
+	ptmp = *pp1;
+	*pp1 = *pp2;
+	*pp2 = ptmp;
+}
+
+int mainToPoint13to6() {
+	/*
+	int num = 3, *pnum, **ppnum;
+	pnum = &num; // 변수 num의 주소가 pnum에 저장됨
+	ppnum = &pnum; // 변수 pnum의 주소가 ppnum에 저장됨
+
+	printf("%d %p %p\n", num, pnum, ppnum);
+	*/
+	int num = 3;
+	int *pnum = &num; // 참조연산자를 한 개 사용하면 간접 참조를 한번(*)
+	int **ppnum = &pnum; // 참조연산자를 두 개 사용하면 간접 참조를 두번(**)
+
+	printf("%p %p %d\n", ppnum, *ppnum, **ppnum);
+	printf("\n");
+
+	printf("%p %d\n", &num, num);
+	printf("%p %p %d\n", &pnum, pnum, *pnum);
+	printf("%p %p %p %d\n", &ppnum, ppnum, *ppnum, **ppnum);
+	printf("\n");
+
+	int x = 10, y = 20;
+	int *p1 = &x, *p2 = &y, *ptmp;
+
+	
+	ptmp = p1;
+	p1 = p2;
+	p2 = ptmp;
+	// p1 <-> p2 교환
+	printf("%d %d\n", *p1, *p2);
+	printf("\n");
+
+	swap2(p1, p2); 
+	// 함수 안에 설정된 포인터는 함수가 마치고 메모리가 해제된다.
+	printf("%d %d\n", *p1, *p2);
+	printf("\n");
+
+	swap3(&p1, &p2); // p1 <-> p2 교환
+	printf("%d %d\n", *p1, *p2); // p1, p2의 주소는 (int **)형이다.
+	printf("\n");
+	return 0;
+}
+
+int main() {
+	int a = 1, b = 2, c = 3;
+	int *pi[3] = { &a, &b, &c }; // int포인터 배열
+	int **ppi;
+
+	ppi = pi;
+	// 배열 이름 pi는 &pi[0]와 동일
+	printf("%p %p %d\n", ppi, *ppi, **ppi);
 	return 0;
 }
