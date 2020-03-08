@@ -65,12 +65,11 @@ int maintoPoint13to3() {
 	return 0;
 }
 
-int main() {
+int maintoPoint13to4() {
 	unsigned int result;
-	int a, i, j = 0, num = 0;
+	int a, i, j = 0, sum = 0;
 	int arr[32];
-	for (i = 0; i < 32; ++i)
-		arr[i] = NULL;
+	
 	for (i = 0; i < 4; ++i) {
 		scanf("%d", &a);
 		arr[j] = int(a / 16);
@@ -78,7 +77,80 @@ int main() {
 		j += 2;
 	}
 
-	for (i = 0; i< 8; ++i) 
-		printf("%d", arr[i]);
+	for (i = 0; i < 8; ++i)
+		sum += pow(16, 7-i) * arr[i];
+	printf("%d\n", sum);
+	return 0;
+}
+
+void pswap(int **x, int **y) {
+	int *temp;
+	temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+int maintoPoint13to5() {
+	int x, y;
+	int *px = &x, *py = &y;
+
+	scanf("%d", &x);
+	scanf("%d", &y);
+
+	pswap(&px, &py);
+
+	printf("%d %d\n", *px, *py);
+	return 0;
+}
+
+void ABC(int (*p)[20], int k1, int k2) {
+	(*(p + k1))[k2] = k1 + k2;
+}
+
+int maintoPoint13to6() {
+	int arr[20][20];
+	int N, i, j;
+	scanf("%d", &N);
+	for (i = 0; i < N; ++i) {
+		for (j = 0; j < N; ++j) {
+			ABC(arr, i, j);
+		}
+	}
+	for (i = 0; i < N; ++i) {
+		for (j = 0; j < N; ++j) {
+			printf(" %d", arr[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+int add4(int a, int b) {
+	return a + b;
+}
+
+int sub4(int a, int b) {
+	return a - b;
+}
+
+int multiply4(int a, int b) {
+	return a * b;
+}
+
+int main() {
+	int a, b, i;
+	void *p = &a;
+	int (*handle[3])(int, int) = {add4, sub4, multiply4};
+	int (*fp)(int, int);
+
+	scanf("%d", &a);
+	scanf("%d", &b);
+	
+	for (i = 0; i < 3; ++i) {
+		fp = handle[i];
+		printf("%d ", fp(a, b));
+	}
+	printf("\n");
+	printf("%d\n", *(int*)(p));
 	return 0;
 }
