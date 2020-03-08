@@ -33,7 +33,7 @@ double fatorial(int n) {
 		}
 		return sum;
 	}
-	else{
+	else {
 		return 1;
 	}
 };
@@ -62,5 +62,23 @@ int maintoPoint13to3() {
 	int N;
 	scanf("%d", &N);
 	printf("%d", Fibonacci(N));
+	return 0;
+}
+
+int main() {
+	unsigned int result;
+	int a, i, j = 0, num = 0;
+	int arr[32];
+	for (i = 0; i < 32; ++i)
+		arr[i] = NULL;
+	for (i = 0; i < 4; ++i) {
+		scanf("%d", &a);
+		arr[j] = int(a / 16);
+		arr[j + 1] = int(a % 16);
+		j += 2;
+	}
+
+	for (i = 0; i< 8; ++i) 
+		printf("%d", arr[i]);
 	return 0;
 }
