@@ -147,7 +147,7 @@ int mainToPoint13to6() {
 	printf("\n");
 
 	int x = 10, y = 20;
-	int* p1 = &x, * p2 = &y, * ptmp;
+	int* p1 = &x, *p2 = &y, *ptmp;
 
 
 	ptmp = p1;
@@ -174,14 +174,14 @@ void init3(int x[][3]) {// int (*x)[3]과 동일
 
 int(*init4(int(*x)[3]))[3]{
 	x[0][0] = x[1][0] = 0;
-    return x;
+	return x;
 }
 
 int mainToPoint13to7() {
 	int a = 1, b = 2, c = 3;
 	int* pi[3] = { &a, &b, &c }; // int포인터 배열
 	int** ppi;
-	int i = 10, * qi, ** qqi, *** qqqi, **** qqqqi;
+	int i = 10, *qi, ** qqi, *** qqqi, **** qqqqi;
 	int arr[2][3] = { {-2, 4, 0},{1, 2, 3} }; // arr의 자료형은 int(*)[3]
 	int j = 0, ar[5] = { 2,3,5,7,-1 };
 	int at[3][5];
@@ -195,7 +195,7 @@ int mainToPoint13to7() {
 	printf("%p %p %d\n", ppi, *ppi, **ppi);
 	printf("%d %d %d\n", **ppi, **(ppi + 1), **(ppi + 2));
 	// int 배열로 주소지정을 해주면 주소들이 1만큼 차이나게 연속적으로 할당된다.
-	
+
 	qi = &i; // (int)형인 i의 주소는 (int *)형
 	qqi = &qi; // (int *)형인 qi의 주소는 (int **)형
 	qqqi = &qqi; // (int **)형인 qqi의 주소는 (int ***)형
@@ -210,7 +210,7 @@ int mainToPoint13to7() {
 	p = ar; // == &ar[0], 즉 int형에 대한 포인터(int *)
 	//p = &ar;
 	// "int *"의 간접 참조 수준이 'int(*)[5]'와 다르다
-	px = &ar; 
+	px = &ar;
 	printf("%p %p\n", p, px);
 	printf("%p %p %p\n", p, p + 1, p + 2); // 주소값이 4만큼 증가 
 	printf("%p %p %p\n", px, px + 1, px + 2); // 주소값이 20만큼 증가
@@ -229,7 +229,7 @@ void print(int a, int b) {
 	printf("%d %d\n", a, b);
 }
 
-int add(int a, int b) {
+int add2(int a, int b) {
 	return a + b;
 }
 
@@ -239,7 +239,7 @@ int sub(int a, int b) {
 
 union student6 {// 공용체
 	int id;
-	char name[8]; 
+	char name[8];
 	// 모든 멤버가 메모리를 공유한다.
 	// 따라서 데이터를 변경하면 다른 데이터에 영향을 미친다.
 };
@@ -254,23 +254,23 @@ enum day_type {// 열거형
 int mainToPoint13to8() {
 	int x[2] = { 4, 8 };
 	void* p = x;
-	void (*fp)(int, int);
+	void(*fp)(int, int);
 	// 반환형 void, 인자가 int형 2개인 함수 포인터 연결
 	char op; int a, b;
-	int (*fq)(int, int);
-	
+	int(*fq)(int, int);
+
 	printf("%d\n", *(int*)p);
-	p = (int*)p + 1; 
+	p = (int*)p + 1;
 	printf("%d\n", *(int*)p);
 
 	fp = print;
 	print(2, 3);
 	fp(1, 5);
 
-	scanf("%c", &op); 
+	scanf("%c", &op);
 	scanf("%d %d", &a, &b);
 	if (op == '+')
-		fq = add;
+		fq = add2;
 	else if (op == '-')
 		fq = sub;
 	else
