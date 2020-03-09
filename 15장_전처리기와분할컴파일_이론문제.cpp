@@ -93,5 +93,9 @@ int mainToPoint15to3() {
 
 	static int number1; // 정적변수(static변수) 
 	// mainToPoint15to3()안에서만 사용이 가능하다.
+
+	// #ifndef __MYHEADER_H__
+	// #define __MYHEADER_H__
+	// 이렇게 해서 include하는 파일의 중복을 막아줄 수 있다.
 	return 0;
 }
