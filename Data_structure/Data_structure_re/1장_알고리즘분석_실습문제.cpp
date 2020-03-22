@@ -90,6 +90,23 @@ int main1to4(){
 	return 0;
 }
 
+int main1to4version2() {
+	char str[100] = "\0";
+	char arr[200] = "\0";
+	char *p = str;
+	char *q = arr;
+	int i, j, num;
+	scanf("%s", str); // 입력은 100까지 받을 수 있습니다.
+	num = strlen(str);
+	strcat(q, p);
+	strcat(q, p);
+
+	for (i = 0; i < num; ++i) {
+		printf("%.*s\n", num, q + i);
+	}
+	return 0;
+}
+
 typedef struct clock {
 	int time;
 	int minute;
