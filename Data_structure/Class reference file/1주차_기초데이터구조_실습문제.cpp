@@ -24,6 +24,7 @@ int main() {
 	int grade, i;
 	char name[21]; // 20자리 문자열까지 가능합니다.
 	NODE *head = NULL;
+	NODE *tmp; // 메모리 해제를 위한 변수입니다.
 	while (true) {
 		gets_s(name);
 		scanf("%d", &grade);
@@ -40,9 +41,12 @@ int main() {
 		head = head->next;
 	} // 연결리스트에 있는 데이터를 출력합니다.
 
+	tmp = head;
 	while (head != NULL) {
+		tmp = head->next;
 		free(head);
-		head = head->next;
+		head = tmp;
 	} // 메모리를 해제합니다.
+
 	return 0;
 }
