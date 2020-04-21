@@ -49,6 +49,20 @@ void print_list(ListNode* head) {
 	printf("%d->", p->data); // 마지막 노드 출력
 }
 
+int get_length(ListNode* head) {
+	ListNode *p;
+	int num = 0;
+	if (head == NULL) {
+		return 0;
+	}
+	p = head->link;
+	do {
+		num++;
+		p = p->link;
+	} while (p != head);
+	return num++;
+}
+
 int main() {
 	ListNode *head = NULL;
 	head = insert_last(head, 10);
@@ -56,6 +70,8 @@ int main() {
 	head = insert_last(head, 30);
 	head = insert_last(head, 40);
 	head = insert_first(head, 0);
+	
+	printf("길이 : %d\n", get_length(head));
 	print_list(head);
 	return 0;
 }
