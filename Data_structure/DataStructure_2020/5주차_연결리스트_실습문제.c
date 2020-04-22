@@ -21,12 +21,25 @@ void init(ListNode *header, ListNode *trailer) {
 	trailer->prev = header;
 } // 이중연결리스트로 초기화합니다.
 
+int get_length(ListNode* header) {
+	ListNode *p;
+	int num = 0;
+	for (p = header->next; p->next != p; p = p->next) {
+		num++;
+	}
+	return num;
+} // 이중연결리스트의 길이를 측정하는 함수입니다. (header와 trailer는 길이에서 제외합니다.)
+
 void add(ListNode* header, int r, char e) {
 	ListNode *p, *newnode;
 	newnode = getnode();
 	p = header;
 	for (int i = 0; i < r; i++) {
 		p = p->next;
+	}
+	if (r < 1 || r > get_length(header) + 1) {
+		printf("invalid position\n");
+		return;
 	}
 	newnode->elem = e;
 	newnode->next = p;
@@ -41,7 +54,7 @@ void delete(ListNode* header, int r) {
 	for (int i = 0; i < r; i++) {
 		p = p->next;
 	}
-	if (r < 1 || p->elem == 0) {
+	if (r < 1 || r > get_length(header)) {
 		printf("invalid position\n");
 		return;
 	}
@@ -54,7 +67,7 @@ element get(ListNode* header, int r) {
 	for (int i = 1; i < r; i++) {
 		p = p->next;
 	}
-	if (r < 1 || p->elem == 0) {
+	if (r < 1 || r > get_length(header)) {
 		printf("invalid position\n");
 	}
 	return p->elem;
