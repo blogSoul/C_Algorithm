@@ -79,6 +79,18 @@ int subset(ListNode *p1, ListNode *p2) {
 	}
 } // 부분집합인지 판별합니다.
 
+void freeNode(ListNode *p1) {
+	ListNode *p, *temp;
+	if (p1 == NULL)
+		return;
+	p = p1;
+	while (p->next != NULL) {
+		temp = p->next;
+		free(p);
+		p = temp;
+	}
+} // 메모리를 해제합니다.
+
 int main() {
 	int i, N, M, num;
 	ListNode *p1 = NULL, *p2 = NULL;
@@ -100,5 +112,7 @@ int main() {
 			p2 = getNode(num);
 	}
 	printf("%d\n", subset(p1, p2));
+	freeNode(p1);
+	freeNode(p2);
 	return 0;
 }
