@@ -10,7 +10,7 @@ typedef struct stack {
 }stack; // 구조체 선언
 
 stack* initStack(int N) {
-	stack* p= (stack*)malloc(sizeof(stack));
+	stack* p = (stack*)malloc(sizeof(stack));
 	p->array = (element*)calloc(N, sizeof(element));// 동적할당
 	p->top = -1;
 	p->N = N;
@@ -68,7 +68,7 @@ void print(stack* p) {
 	}
 	printf("\n");
 	return;
-} // stack peek 함수입니다.
+} // stack print 함수입니다.
 
 void upRotate(stack* p, int N) {
 	char topWord;
@@ -82,11 +82,33 @@ void upRotate(stack* p, int N) {
 	topWord = p->array[p->top];
 	num = p->top;
 	for (i = 0; i < N - 1; i++) {
-		p->array[num] = p->array[num-1];
+		p->array[num] = p->array[num - 1];
 		num--;
 	}
 	p->array[p->top - N + 1] = topWord;
 } // stack에서 UpRotate을 하는 함수입니다.
+
+void upRotate_2(stack* p, int N) {
+	char topWord;
+	element *q;
+	int i, num;
+	q = (element*)calloc(N, sizeof(element));
+	if (p->top == -1) {
+		printf("Stack Empty\n");
+		return;
+	}
+	if (p->top < N - 1)
+		return;
+	for (i = 0; i < N; i++) {
+		q[i] = p->array[p->top];
+		pop(p);
+	}
+	push(p, q[0]);
+	for (i = N - 1; i > 0; i--) {
+		push(p, q[i]);
+	}
+	free(q);
+} // stack의 pop과 push를 이용해 UpRotate을 하는 함수입니다.
 
 void downRotate(stack* p, int N) {
 	char topWord;
@@ -106,8 +128,30 @@ void downRotate(stack* p, int N) {
 	p->array[p->top] = topWord;
 } // stack에서 downRotate을 하는 함수입니다.
 
+void downRotate_2(stack* p, int N) {
+	char topWord;
+	element *q;
+	int i, num;
+	q = (element*)calloc(N, sizeof(element));
+	if (p->top == -1) {
+		printf("Stack Empty\n");
+		return;
+	}
+	if (p->top < N - 1)
+		return;
+	for (i = 0; i < N; i++) {
+		q[i] = p->array[p->top];
+		pop(p);
+	}
+	for (i = N - 2; i >= 0; i--) {
+		push(p, q[i]);
+	}
+	push(p, q[N - 1]);
+	free(q);
+} // stack의 pop과 push를 이용해 downRotate을 하는 함수입니다.
+
 void freeStack(stack* p) {
-	if(p->top == -1 || p->N == 0)
+	if (p->top == -1 || p->N == 0)
 		return;
 	free(p->array);
 	p->top = -1;
@@ -146,12 +190,12 @@ int main() {
 		else if (strcmp(order, "UpR") == 0) {
 			scanf("%d", &J);
 			getchar();
-			upRotate(p, J);
+			upRotate_2(p, J);
 		}
 		else if (strcmp(order, "DownR") == 0) {
 			scanf("%d", &J);
 			getchar();
-			downRotate(p, J);
+			downRotate_2(p, J);
 		}
 		else if (strcmp(order, "PRINT") == 0) {
 			print(p);
