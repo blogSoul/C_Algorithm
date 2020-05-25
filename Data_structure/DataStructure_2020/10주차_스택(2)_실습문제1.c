@@ -52,7 +52,7 @@ void pop(stack* p) {
 	}
 	printf("%c", p->word[p->top]);
 	p->word[p->top] = "\0";
-	p->word_priority[p->top] = 0;
+	p->word_priority[p->top] = -1;
 	p->top--;
 } // stack에서 pop를 해주는 함수입니다.
 
@@ -82,8 +82,8 @@ void printPostfixformula(char* word) {
 	p = init(N); // 스택 초기화 및 선언
 	for (i = 0; i < N; i++) {
 		if (word[i] == '(') {
-			checkUnary = 1;
 			push(p, word[i]);
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else if (word[i] == ')') {
 			while (p->top != -1) {
@@ -120,11 +120,12 @@ void printPostfixformula(char* word) {
 				}
 			}
 			push(p, word[i]);
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else if (word[i] == '+' || word[i] == '-') {
 			if (checkUnary == 1) {
 				// 단항 연산자 부분입니다.
-				// 수식에서 +,- 단항연산자가 나올 수 있는 경우는 첫 글자나 괄호 다음 첫 글자밖에 없습니다.
+				// 수식에서 +,- 단항연산자가 나올 수 있는 경우는 첫 글자나 괄호 다음 첫 글자일 때입니다.
 				while (p->top != -1) {
 					if (p->word_priority[p->top] >= 6) {
 						pop(p);
@@ -136,7 +137,6 @@ void printPostfixformula(char* word) {
 				p->top++;
 				p->word[p->top] = word[i];
 				p->word_priority[p->top] = 6;
-				checkUnary = 0;
 				continue;
 			}
 			while (p->top != -1) {
@@ -148,6 +148,7 @@ void printPostfixformula(char* word) {
 				}
 			}
 			push(p, word[i]);
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else if (word[i] == '>' || word[i] == '<') {
 			while (p->top != -1) {
@@ -159,6 +160,7 @@ void printPostfixformula(char* word) {
 				}
 			}
 			push(p, word[i]);
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else if (word[i] == '&' && word[i + 1] == '&') {
 			while (p->top != -1) {
@@ -172,6 +174,7 @@ void printPostfixformula(char* word) {
 			push(p, word[i]);
 			push(p, word[i + 1]);
 			i++;
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else if (word[i] == '|' && word[i + 1] == '|') {
 			while (p->top != -1) {
@@ -185,6 +188,7 @@ void printPostfixformula(char* word) {
 			push(p, word[i]);
 			push(p, word[i+ 1]);
 			i++;
+			checkUnary = 1; // 단항 연산자가 가능해집니다.
 		}
 		else {
 			printf("%c", word[i]);
