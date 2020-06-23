@@ -3,18 +3,17 @@
 #define MAX 1000001
 int value[MAX];
 
-int find(int *p, int i) {
-	if (p[i] == i)
+int find(int i) {
+	if (value[i] == i)
 		return i;
-	else
-		return find(p, p[i]);
+	else {
+		value[i] = find(value[i]); // 이 부분이 핵심입니다!!!
+		return value[i];
+	}
 }
 
-void _union(int *p, int a, int b) {
-	int N = find(p, a);
-	int M = find(p, b);
-	if (N != M)
-		p[N] = M;
+void _union(int a, int b) {
+	value[find(a)] = find(b);
 }
 
 int main() {
@@ -26,10 +25,10 @@ int main() {
 	for (i = 0; i < M; i++) {
 		scanf("%d %d %d", &a, &b, &c);
 		if (a == 0) {
-			_union(value, b, c);
+			_union(b, c);
 		}
-		else if (a == 1) {
-			if (find(value, b) == find(value, c)) {
+		else {
+			if (find(b) == find(c)) {
 				printf("YES\n");
 			}
 			else {
